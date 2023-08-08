@@ -1,0 +1,19 @@
+{
+	"name": "v2-csv-parser",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "nodemon dist/script.js",
+		"watch": "rm -rf dist/* && npx tsc -w"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^20.2.1",
+		"nodemon": "^2.0.22",
+		"typescript": "^5.0.4"
+	}
+}
