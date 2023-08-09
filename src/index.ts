@@ -6,4 +6,6 @@ import getFileHeaders from "./getFileHeaders";
 const baseUploadPath = path.resolve(__dirname, "../", "public", "uploads");
 
 checkUploadDir(baseUploadPath);
-getFileHeaders(baseUploadPath);
+getFileHeaders(baseUploadPath).then((data) => {
+	console.log(data);
+});
