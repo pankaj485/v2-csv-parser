@@ -13,15 +13,19 @@ interface fileHeaderData {
 	inValidHeaders: string[];
 }
 
-const getFileHeaders = async (baseUploadPath: string, paramheader?: string[]) => {
+type options = {
+	headers?: string[];
+	headerColumn?: number;
+};
+const getFileHeaders = async (baseUploadPath: string, configOptions: options) => {
 	const file = getValidFiles(baseUploadPath)[0];
 	// const file = "sample.csv";
 	const filePath = path.resolve(__dirname, baseUploadPath, file);
-	const headerRowNum = 1;
+	const headerRowNum = configOptions?.headerColumn ?? 1;
 	let headersInFile: string[] = [];
 	let validHeaders: string[] = [];
 	let inValidHeaders: string[] = [];
-	let headersFromParam: string[] = ["description", "mojo", "vendix", "industry"];
+	let headersFromParam: string[] = configOptions?.headers ?? [];
 	let requestedHeaders: string[] = [...new Set(headersFromParam)];
 
 	try {
