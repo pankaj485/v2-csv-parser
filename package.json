@@ -15,5 +15,8 @@
 		"@types/node": "^20.2.1",
 		"nodemon": "^2.0.22",
 		"typescript": "^5.0.4"
+	},
+	"dependencies": {
+		"csv-parser": "^3.0.0"
 	}
 }
