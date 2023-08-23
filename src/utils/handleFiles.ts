@@ -6,11 +6,14 @@ const checkUploadDir = (baseUploadPath: string) => {
 		if (!fs.existsSync(baseUploadPath)) {
 			console.log("Creating upload directory.");
 			fs.mkdirSync(baseUploadPath, { recursive: true });
+			return true;
 		} else {
 			console.log("Upload directory exists");
+			return true;
 		}
 	} catch (error) {
 		handleError(error, "Error while checking file upload directory");
+		return false;
 	}
 };
 

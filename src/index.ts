@@ -6,26 +6,33 @@ import { getCsvData } from "./getCsvData";
 import { getFiles } from "./utils/getFiles";
 
 const baseUploadPath = path.resolve(__dirname, "../", "public", "uploads");
-const headers = ["description", "level", "insta", "mojo", "vendix"];
+const headers = ["industry", "description", "level", "insta", "mojo", "vendix"];
 
-checkUploadDir(baseUploadPath);
-getFileHeaders(baseUploadPath, {
-	headerColumn: 1,
-	headers: headers,
-}).then((headerData: any) => {
-	console.log("\nHeaders data: ", headerData);
+async function processData() {
+	const isValidUpoadDir = checkUploadDir(baseUploadPath);
+	try {
+		if (isValidUpoadDir) {
+			const headerData: any = await getFileHeaders(baseUploadPath, {
+				headerColumn: 1,
+				headers: headers,
+			});
 
-	const { validHeaders } = headerData;
+			console.log("\nHeaders data: ", headerData);
 
-	const parsingConfig = {
-		headers: validHeaders,
-		from_line: 1,
-		to_line: 3,
-	};
+			const fileFullPath = path.resolve(__dirname, baseUploadPath, getFiles(baseUploadPath)[0]);
+			const { validHeaders } = headerData;
+			const parsingConfig = {
+				headers: validHeaders,
+				from_line: 1,
+				to_line: 30,
+			};
 
-	const fileFullPath = path.resolve(__dirname, baseUploadPath, getFiles(baseUploadPath)[0]);
+			const data = await getCsvData(fileFullPath, parsingConfig);
+			console.log("\nParsed data: ", data);
+		}
+	} catch (error) {
+		console.error("An error occurred:", error);
+	}
+}
 
-	getCsvData(fileFullPath, parsingConfig).then((data) => {
-		console.log("\nParsed data: ", data);
-	});
-});
+processData();
