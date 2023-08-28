@@ -1,22 +1,22 @@
-import path from "path";
-const app = require("express")();
-import { processData } from "./parser";
+import express, { Express, Request, Response } from "express";
+
+import { getData } from "./getData";
+
+const app: Express = express();
+app.use(express.json());
 
 const PORT = 8000;
 
-const baseUploadPath = path.resolve(__dirname, "../", "public", "uploads");
-const headers = ["industry", "description", "level", "insta", "mojo", "vendix"];
+app.post("/parsefile", (req: Request, res: Response) => {
+	const { baseUploadPath, headers } = req.body;
 
-// processData(baseUploadPath, headers).then((data) => console.log(data));
-
-function getData(baseUploadPath: string, headers: string[]) {
-	return processData(baseUploadPath, headers);
-}
-
-app.get("/getdata", (req: any, res: any) => {
-	getData(baseUploadPath, headers).then((data) => res.status(200).json(data));
+	getData(baseUploadPath, headers).then((data) => {
+		res.status(200).json({
+			data,
+		});
+	});
 });
 
 app.listen(PORT, () => {
-	console.log(`server is running on PORT ${PORT}`);
+	console.log(`Server is running on PORT ${PORT}`);
 });
