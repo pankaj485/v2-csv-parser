@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import { getData } from "./getData";
 import { multerStorageConfig } from "./utils/multerConfig";
+import { clearFiles } from "./utils/clearFiles";
 const multer = require("multer");
 
 const app: Express = express();
@@ -10,6 +11,9 @@ const PORT = 8000;
 
 const storage = multerStorageConfig();
 const upload = multer({ storage });
+
+// clering contents of the uploaded file before performing new request
+clearFiles();
 
 app.post("/fileupload", upload.single("csvfile"), (req: Request, res: Response) => {
 	// console.log(req.file);

@@ -11,7 +11,7 @@ const multerStorageConfig = () => {
 
 			// if the directory doesn't exist then create it
 			if (!fs.existsSync(fileUploadPath)) {
-				fs.mkdirSync(fileUploadPath, { recursive: true }, (error: any) => {
+				fs.mkdirSync(fileUploadPath, { recursive: true }, (error: Error) => {
 					if (error) console.log(error);
 				});
 			}
