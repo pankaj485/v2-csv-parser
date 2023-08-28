@@ -43,7 +43,7 @@ app.post("/fileupload", upload.single("csvfile"), (req: Request, res: Response) 
 	}
 
 	headers.split(",").forEach((element: string) => {
-		headerData.push(element);
+		headerData.push(element.trim());
 	});
 
 	getData(baseUploadPath, headerData).then((data) => {
