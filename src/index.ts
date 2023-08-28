@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import { getData } from "./getData";
 import { multerStorageConfig } from "./utils/multerConfig";
 import { clearFiles } from "./utils/clearFiles";
+import path from "path";
 const multer = require("multer");
 
 const app: Express = express();
@@ -16,20 +17,37 @@ const upload = multer({ storage });
 clearFiles();
 
 app.post("/fileupload", upload.single("csvfile"), (req: Request, res: Response) => {
-	// console.log(req.file);
+	const { headers = "" } = req.body;
+	let headerData: string[] = [];
+	const baseUploadPath = path.resolve(__dirname, "../public/uploads");
 
-	res.status(200).json({
-		data: "yess",
-	});
-});
+	const isFileUploaded = Boolean(req.file);
+	const isHeaderPassed = Boolean(headers);
 
-app.post("/parsefile", (req: Request, res: Response) => {
-	const { baseUploadPath, headers } = req.body;
-
-	getData(baseUploadPath, headers).then((data) => {
-		res.status(200).json({
-			data,
+	if (!isFileUploaded && !isHeaderPassed) {
+		return res.status(400).json({
+			message: "file not uploaded, no headers requested",
 		});
+	}
+
+	if (!isFileUploaded) {
+		return res.status(400).json({
+			message: "file not uploaded",
+		});
+	}
+
+	if (!isHeaderPassed) {
+		return res.status(400).json({
+			message: "no headers requested",
+		});
+	}
+
+	headers.split(",").forEach((element: string) => {
+		headerData.push(element);
+	});
+
+	getData(baseUploadPath, headerData).then((data) => {
+		res.status(200).json(data);
 	});
 });
 

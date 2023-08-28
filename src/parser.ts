@@ -20,8 +20,8 @@ async function processData(baseUploadPath: string, headers: string[]) {
 			const { validHeaders } = headerData;
 			const parsingConfig = {
 				headers: validHeaders,
-				from_line: 1,
-				to_line: 30,
+				// from_line: 1,
+				// to_line: 30,
 			};
 
 			const data = await getCsvData(fileFullPath, parsingConfig);
