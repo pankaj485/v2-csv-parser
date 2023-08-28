@@ -6,7 +6,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "nodemon dist/script.js",
-		"watch": "rm -rf dist/* && npx tsc -w"
+		"watch": "rm -rf dist/* && npx tsc -w",
+		"build": "rm -rf dist && npx tsc"
 	},
 	"keywords": [],
 	"author": "",
