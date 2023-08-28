@@ -51,6 +51,12 @@ app.post("/fileupload", upload.single("csvfile"), (req: Request, res: Response) 
 	});
 });
 
+app.get("/", (req: Request, res: Response) => {
+	res.status(200).json({
+		message: "use /fileupload endpoint to test feature",
+	});
+});
+
 app.listen(PORT, () => {
 	console.log(`Server is running on PORT ${PORT}`);
 });
