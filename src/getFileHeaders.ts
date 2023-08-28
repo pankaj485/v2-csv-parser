@@ -18,7 +18,7 @@ type options = {
 	headerColumn?: number;
 };
 const getFileHeaders = async (baseUploadPath: string, configOptions: options) => {
-	const file = getValidFiles(baseUploadPath)[0];
+	const file = path.resolve(__dirname, "../public/uploads", "uploadedFile.csv");
 	// const file = "sample.csv";
 	const filePath = path.resolve(__dirname, baseUploadPath, file);
 	const headerRowNum = configOptions?.headerColumn ?? 1;
