@@ -9,7 +9,7 @@ const cors = require("cors");
 const app: Express = express();
 
 app.use(express.json());
-app.use(cors({ origin: "*", optionsSuccessStatus: 200 }));
+app.use(cors({ origin: "https://v2-csv-parser-fe.netlify.app/", optionsSuccessStatus: 200 }));
 const PORT = 8000;
 
 const storage = multerStorageConfig();
