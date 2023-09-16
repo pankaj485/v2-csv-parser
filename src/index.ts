@@ -4,18 +4,12 @@ import { multerStorageConfig } from "./utils/multerConfig";
 import { clearFiles } from "./utils/clearFiles";
 import path from "path";
 const multer = require("multer");
-var cors = require("cors");
+const cors = require("cors");
 
 const app: Express = express();
 
-// defining CORS parameters
-let corsOptions = {
-	origin: "*",
-};
-
-app.use(cors(corsOptions));
-
 app.use(express.json());
+app.use(cors({ origin: "https://v2-csv-parser.onrender.com", optionsSuccessStatus: 200 }));
 const PORT = 8000;
 
 const storage = multerStorageConfig();
