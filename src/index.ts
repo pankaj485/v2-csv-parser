@@ -4,10 +4,12 @@ import { multerStorageConfig } from "./utils/multerConfig";
 import { clearFiles } from "./utils/clearFiles";
 import path from "path";
 const multer = require("multer");
+var cors = require("cors");
 
 const app: Express = express();
-app.use(express.json());
 
+app.use(express.json());
+app.use(cors({ origin: ["https://v2-csv-parser-fe.netlify.app"] }));
 const PORT = 8000;
 
 const storage = multerStorageConfig();
