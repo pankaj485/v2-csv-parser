@@ -8,8 +8,14 @@ var cors = require("cors");
 
 const app: Express = express();
 
+// defining CORS parameters
+let corsOptions = {
+	origin: "*",
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
-app.use(cors({ origin: "*" }));
 const PORT = 8000;
 
 const storage = multerStorageConfig();
